@@ -1,0 +1,20 @@
+* text=auto
+
+*.css           text
+*.htm           text
+*.html          text
+*.java          text
+*.js            text
+*.json          text
+*.jsp           text
+*.md            text
+*.properties    text
+*.sh            text
+*.svg           text
+*.txt           text
+*.xml           text
+
+*.gif           binary
+*.jpg           binary
+*.jpeg          binary
+*.png           binary
