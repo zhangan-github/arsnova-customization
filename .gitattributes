@@ -1,5 +1,6 @@
 * text=auto
 
+*.bat           text    eol=crlf
 *.css           text
 *.htm           text
 *.html          text
@@ -15,6 +16,7 @@
 *.xml           text
 
 *.gif           binary
+*.jar           binary
 *.jpg           binary
 *.jpeg          binary
 *.png           binary
