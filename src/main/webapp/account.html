@@ -4,9 +4,60 @@
 <title>ARSnova: Anmeldung</title>
 <meta name="viewport" content="initial-scale=1, maximum-scale=1" />
 <style type="text/css">
+
+@font-face {
+	font-family: 'arsnova';
+	src:url('font/arsnova.eot?-xz0kjr');  /* IE */
+	src:url('font/arsnova.eot?#iefix-xz0kjr') format('embedded-opentype'), 
+		url('font/arsnova.woff?-xz0kjr') format('woff'),
+		url('font/arsnova.ttf?-xz0kjr') format('truetype'),
+		url('font/arsnova.svg?-xz0kjr#arsnova') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+.icon-logo {
+	text-align: center;
+	font-family: 'arsnova';
+	speak: none;
+	font-size: 3.5em;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	
+	margin-top: 35px;
+	margin-bottom: 20px;
+	
+	/* Better Font Rendering =========== */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.icon-logo-radar:before {
+	content: "\72";
+	margin-right: -.20em;
+	margin-left: 5px;
+	color: #80ba24;
+}
+
+.icon-logo-ars:before {
+	content: "\61";
+	margin-left: -.5em;
+	color: #4a5c66;
+}
+
+.icon-logo-nova:before {
+	content: "\6e";
+	margin-left: -.5em;
+	color: #80ba24;
+}
+
 body {
+	color: #4a5c66;
 	font-family: sans-serif;
-	background-color: #eeeeee;
+	background-color: #E0E0E0;
 	margin: 0;
 }
 
@@ -18,11 +69,6 @@ a {
 a:hover {
 	color: #6f8a99;
 	text-decoration: none;
-}
-
-#header {
-	margin: 40px;
-	text-align: center;
 }
 
 #content {
@@ -52,7 +98,7 @@ a:hover {
 h1 {
 	font-size: 1.5em;
 	font-weight: normal;
-	color: #666666;
+	color: #4a5c66;
 	padding-top: 20px;
 }
 
@@ -68,12 +114,19 @@ form {
 }
 
 input {
+	font-size: 1.15em;
+	text-align: center;
+
 	width: 320px;
-	border: 1px solid gray;
+	border: none;
 	background-color: #ffffff;
-	color: #000000;
+	color: #4a5c66;
 	padding: 8px;
-	margin: 4px 0;
+	
+	height: 45px;
+	overflow: hidden;
+	border-radius: .4em;
+	margin: 5px 0px;
 }
 
 input.error {
@@ -102,8 +155,8 @@ input.error {
 
 .submit {
 	color: #ffffff;
-	background-color: 80ba24;
-	font-weight: bold;
+	background-color: #80ba24;
+	font-weight: normal;
 }
 </style>
 
@@ -375,8 +428,10 @@ addEventListener("load", function () {
 
 <body>
 
-<div id="header">
-	<img src="images/arsnova.png" />
+<div id="header" class="icon-logo">
+	<span class="icon-logo-radar"></span>
+	<span class="icon-logo-ars"></span>
+	<span class="icon-logo-nova"></span>
 </div>
 
 <div id="content">
