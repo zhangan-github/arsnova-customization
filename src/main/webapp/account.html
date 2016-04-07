@@ -8,7 +8,7 @@
 @font-face {
 	font-family: 'arsnova';
 	src:url('font/arsnova.eot?-xz0kjr');  /* IE */
-	src:url('font/arsnova.eot?#iefix-xz0kjr') format('embedded-opentype'), 
+	src:url('font/arsnova.eot?#iefix-xz0kjr') format('embedded-opentype'),
 		url('font/arsnova.woff?-xz0kjr') format('woff'),
 		url('font/arsnova.ttf?-xz0kjr') format('truetype'),
 		url('font/arsnova.svg?-xz0kjr#arsnova') format('svg');
@@ -26,10 +26,10 @@
 	font-variant: normal;
 	text-transform: none;
 	line-height: 1;
-	
+
 	margin-top: 35px;
 	margin-bottom: 20px;
-	
+
 	/* Better Font Rendering =========== */
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
@@ -125,7 +125,7 @@ input {
 	background-color: #ffffff;
 	color: #4a5c66;
 	padding: 8px;
-	
+
 	height: 45px;
 	overflow: hidden;
 	border-radius: .4em;
@@ -356,6 +356,17 @@ function updateStatusInfo(msg, type) {
 	}
 }
 
+function checkUsername(username, repeat, submit) {
+	var usernameError = false;
+	if (username.value === repeat.value) {
+		username.className = "";
+	} else {
+		usernameError = true;
+		username.className = "error";
+	}
+	submit.disabled = usernameError ? "disabled" : "";
+}
+
 function checkPw(pw, repeat, submit) {
 	var pwError = false;
 
@@ -391,6 +402,8 @@ function onConfigLoaded() {
 	var pwResetPassword = document.getElementById("pwResetPassword");
 	var pwResetPasswordRepeat = document.getElementById("pwResetPasswordRepeat");
 	var pwResetSubmit = document.getElementById("pwResetSubmit");
+	var regUsername = document.getElementById("regUsername");
+	var regUsernameRepeat = document.getElementById("regUsernameRepeat");
 
 	document.getElementById("loginForm").addEventListener("submit", function (e) {
 		e.preventDefault();
@@ -414,6 +427,9 @@ function onConfigLoaded() {
 	});
 	regPasswordRepeat.addEventListener("keyup", function () {
 		checkPw(regPassword, regPasswordRepeat, regSubmit);
+	});
+	regUsernameRepeat.addEventListener("keyup", function () {
+		checkUsername(regUsername, regUsernameRepeat, regSubmit);
 	});
 	pwResetPassword.addEventListener("keyup", function () {
 		checkPw(pwResetPassword, pwResetPasswordRepeat, pwResetSubmit);
@@ -464,6 +480,9 @@ addEventListener("load", function () {
 			<input id="regUsername" type="text" placeholder="E-Mail-Adresse" />
 		</div>
 		<div>
+			<input id="regUsernameRepeat" type="text" placeholder="E-Mail-Adresse (Wiederholung)" />
+		</div>
+		<div>
 			<input id="regPassword" type="password" placeholder="Passwort (min. 8 Zeichen)" />
 		</div>
 		<div>
@@ -509,7 +528,7 @@ addEventListener("load", function () {
 	</form>
 
 	<div id="regConfirmInfo">
-		<p>Eine Bestätigung wurde Ihnen an <strong id="regConfirmMail"></strong> gesendet. Zum Abschließen 
+		<p>Eine Bestätigung wurde Ihnen an <strong id="regConfirmMail"></strong> gesendet. Zum Abschließen
 		der Registrierung folgen Sie bitte dem Link in der E-Mail.</p>
 	</div>
 </div>
