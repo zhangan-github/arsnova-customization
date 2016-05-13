@@ -470,7 +470,7 @@ addEventListener("load", function () {
 
 	<form id="loginForm">
 		<div>
-			<input id="user" type="text" placeholder="E-Mail-Adresse" />
+			<input id="user" type="email" placeholder="E-Mail-Adresse" autocapitalize="off" autocorrect="off" spellcheck="false" />
 		</div>
 		<div>
 			<input id="password" type="password" placeholder="Passwort" />
@@ -487,10 +487,10 @@ addEventListener("load", function () {
 
 	<form id="regForm">
 		<div>
-			<input id="regUsername" type="text" placeholder="E-Mail-Adresse" />
+			<input id="regUsername" type="email" placeholder="E-Mail-Adresse" autocapitalize="off" autocorrect="off" spellcheck="false" />
 		</div>
 		<div>
-			<input id="regUsernameRepeat" type="text" placeholder="E-Mail-Adresse (Wiederholung)" />
+			<input id="regUsernameRepeat" type="email" placeholder="E-Mail-Adresse (Wiederholung)" autocapitalize="off" autocorrect="off" spellcheck="false" autocomplete="off" />
 		</div>
 		<div>
 			<input id="regPassword" type="password" placeholder="Passwort (min. 8 Zeichen)" />
@@ -510,7 +510,7 @@ addEventListener("load", function () {
 	<form id="pwResetForm">
 		<div>Bitte geben Sie Ihre E-Mail-Adresse an, mit der Sie sich bei ARSnova registriert haben. Ihnen wird dann in Kürze ein Link für das Setzen eines neuen Passworts zugesendet.</div>
 		<div>
-			<input id="pwResetUsername" type="text" placeholder="E-Mail-Adresse" />
+			<input id="pwResetUsername" type="email" placeholder="E-Mail-Adresse" autocapitalize="off" autocorrect="off" spellcheck="false" />
 		</div>
 		<div>
 			<input class="submit" type="submit" value="Link zusenden" />
