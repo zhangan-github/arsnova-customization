@@ -462,7 +462,7 @@ function onConfigLoaded() {
 		}
 	});
 	pwResetPassword.addEventListener("keyup", function () {
-		if (checkPw(pwResetPassword, pwResetPasswordRepeat)) {
+		if (!checkPw(pwResetPassword, pwResetPasswordRepeat)) {
 			regSubmit.disabled = "disabled";
 		}
 		else {
@@ -470,7 +470,7 @@ function onConfigLoaded() {
 		}
 	});
 	pwResetPasswordRepeat.addEventListener("keyup", function () {
-		if (checkPw(pwResetPassword, pwResetPasswordRepeat)) {
+		if (!checkPw(pwResetPassword, pwResetPasswordRepeat)) {
 			pwResetSubmit.disabled = "disabled";
 		}
 		else {
@@ -574,7 +574,7 @@ addEventListener("load", function () {
 </div>
 
 <div id="footer">
-	<a target="_blank" href="datenschutz.html">Datenschutz</a> &bull; <a target="_blank" href="impressum.html">Impressum</a>
+	<a target="_blank" href="https://arsnova.thm.de/blog/datenschutzerklaerung/">Datenschutz</a> &bull; <a target="_blank" href="https://arsnova.thm.de/blog//impressum/">Impressum</a>
 </div>
 
 </body>
