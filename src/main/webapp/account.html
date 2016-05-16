@@ -463,10 +463,10 @@ function onConfigLoaded() {
 	});
 	pwResetPassword.addEventListener("keyup", function () {
 		if (checkPw(pwResetPassword, pwResetPasswordRepeat)) {
-			regSubmit.disabled = "disabled";
+			pwResetSubmit.disabled = "disabled";
 		}
 		else {
-			regSubmit.disabled = "";
+			pwResetSubmit.disabled = "";
 		}
 	});
 	pwResetPasswordRepeat.addEventListener("keyup", function () {
