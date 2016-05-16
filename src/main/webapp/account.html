@@ -356,18 +356,18 @@ function updateStatusInfo(msg, type) {
 	}
 }
 
-function checkUsername(username, repeat, submit) {
+function checkUsername(username, repeat) {
 	var usernameError = false;
 	if (username.value === repeat.value) {
-		username.className = "";
+		repeat.className = "";
 	} else {
 		usernameError = true;
-		username.className = "error";
+		repeat.className = "error";
 	}
 	return usernameError;
 }
 
-function checkPw(pw, repeat, submit) {
+function checkPw(pw, repeat) {
 	var pwError = false;
 
 	if (pw.value.length >= 8) {
@@ -395,14 +395,14 @@ function onConfigLoaded() {
 		}
 	}
 
+	var regUsername = document.getElementById("regUsername");
+	var regUsernameRepeat = document.getElementById("regUsernameRepeat");
 	var regPassword = document.getElementById("regPassword");
 	var regPasswordRepeat = document.getElementById("regPasswordRepeat");
 	var regSubmit = document.getElementById("regSubmit");
 	var pwResetPassword = document.getElementById("pwResetPassword");
 	var pwResetPasswordRepeat = document.getElementById("pwResetPasswordRepeat");
 	var pwResetSubmit = document.getElementById("pwResetSubmit");
-	var regUsername = document.getElementById("regUsername");
-	var regUsernameRepeat = document.getElementById("regUsernameRepeat");
 
 	document.getElementById("loginForm").addEventListener("submit", function (e) {
 		e.preventDefault();
@@ -421,29 +421,9 @@ function onConfigLoaded() {
 		resetPassword();
 	});
 
-	regPassword.addEventListener("keyup", function () {
-		var pwError = checkPw(regPassword, regPasswordRepeat, regSubmit);
-		var usernameError = checkUsername(regUsername, regUsernameRepeat, regSubmit);
-		if (pwError || usernameError) {
-			regSubmit.disabled = "disabled";
-		}
-		else {
-			regSubmit.disabled = "";
-		}
-	});
-	regPasswordRepeat.addEventListener("keyup", function () {
-		var pwError = checkPw(regPassword, regPasswordRepeat, regSubmit);
-		var usernameError = checkUsername(regUsername, regUsernameRepeat, regSubmit);
-		if (pwError || usernameError) {
-			regSubmit.disabled = "disabled";
-		}
-		else {
-			regSubmit.disabled = "";
-		}
-	});
 	regUsername.addEventListener("keyup", function () {
-		var pwError = checkPw(regPassword, regPasswordRepeat, regSubmit);
-		var usernameError = checkUsername(regUsername, regUsernameRepeat, regSubmit);
+		var pwError = checkPw(regPassword, regPasswordRepeat);
+		var usernameError = checkUsername(regUsername, regUsernameRepeat);
 		if (pwError || usernameError) {
 			regSubmit.disabled = "disabled";
 		}
@@ -452,8 +432,28 @@ function onConfigLoaded() {
 		}
 	});
 	regUsernameRepeat.addEventListener("keyup", function () {
-		var pwError = checkPw(regPassword, regPasswordRepeat, regSubmit);
-		var usernameError = checkUsername(regUsername, regUsernameRepeat, regSubmit);
+		var pwError = checkPw(regPassword, regPasswordRepeat);
+		var usernameError = checkUsername(regUsername, regUsernameRepeat);
+		if (pwError || usernameError) {
+			regSubmit.disabled = "disabled";
+		}
+		else {
+			regSubmit.disabled = "";
+		}
+	});
+	regPassword.addEventListener("keyup", function () {
+		var pwError = checkPw(regPassword, regPasswordRepeat);
+		var usernameError = checkUsername(regUsername, regUsernameRepeat);
+		if (pwError || usernameError) {
+			regSubmit.disabled = "disabled";
+		}
+		else {
+			regSubmit.disabled = "";
+		}
+	});
+	regPasswordRepeat.addEventListener("keyup", function () {
+		var pwError = checkPw(regPassword, regPasswordRepeat);
+		var usernameError = checkUsername(regUsername, regUsernameRepeat);
 		if (pwError || usernameError) {
 			regSubmit.disabled = "disabled";
 		}
@@ -462,9 +462,7 @@ function onConfigLoaded() {
 		}
 	});
 	pwResetPassword.addEventListener("keyup", function () {
-		var pwError = checkPw(regPassword, regPasswordRepeat, regSubmit);
-		var usernameError = checkUsername(regUsername, regUsernameRepeat, regSubmit);
-		if (pwError || usernameError) {
+		if (checkPw(pwResetPassword, pwResetPasswordRepeat)) {
 			regSubmit.disabled = "disabled";
 		}
 		else {
@@ -472,13 +470,11 @@ function onConfigLoaded() {
 		}
 	});
 	pwResetPasswordRepeat.addEventListener("keyup", function () {
-		var pwError = checkPw(regPassword, regPasswordRepeat, regSubmit);
-		var usernameError = checkUsername(regUsername, regUsernameRepeat, regSubmit);
-		if (pwError || usernameError) {
-			regSubmit.disabled = "disabled";
+		if (checkPw(pwResetPassword, pwResetPasswordRepeat)) {
+			pwResetSubmit.disabled = "disabled";
 		}
 		else {
-			regSubmit.disabled = "";
+			pwResetSubmit.disabled = "";
 		}
 	});
 }
