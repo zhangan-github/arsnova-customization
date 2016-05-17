@@ -167,6 +167,8 @@ input.error {
 <script>
 /* TODO: replace sync AJAX calls by async ones */
 var apiPath = "";
+var privacyUrl = "";
+var legalUrl = "";
 
 function loadConfig(successCallback, failureCallback) {
 	req = new XMLHttpRequest();
@@ -177,6 +179,12 @@ function loadConfig(successCallback, failureCallback) {
 				var response = JSON.parse(req.responseText);
 				console.debug(response, response.apiPath);
 				apiPath = response.apiPath;
+				if (response.privacyPolicyUrl) {
+					privacyUrl = response.privacyPolicyUrl;
+				}
+				if (response.imprintUrl) {
+					legalUrl = response.imprintUrl;
+				}
 				if (successCallback) {
 					successCallback();
 				}
@@ -407,6 +415,22 @@ function validatePwResetForm() {
 }
 
 function onConfigLoaded() {
+	var privacyLink = document.getElementById("privacy-link");
+	var legalLink = document.getElementById("legal-link");
+	if (privacyUrl !== "") {
+		privacyLink.href = privacyUrl;
+	} else {
+		privacyLink.style.display = "none";
+	}
+	if (legalUrl !== "") {
+		legalLink.href = legalUrl;
+	} else {
+		legalLink.style.display = "none";
+	}
+	if (privacyUrl === "" || legalUrl === "") {
+		var footerDelimiter = document.getElementById("footer-delimiter");
+		footerDelimiter.style.display = "none";
+	}
 	if (params.username && params.key) {
 		if ("resetpassword" === params.action) {
 			switchForm("pwChange");
@@ -544,7 +568,7 @@ addEventListener("load", function () {
 </div>
 
 <div id="footer">
-	<a target="_blank" href="datenschutz.html">Datenschutz</a> &bull; <a target="_blank" href="impressum.html">Impressum</a>
+	<a id="privacy-link" target="_blank">Datenschutz</a><span id="footer-delimiter"> &bull; </span><a id="legal-link" target="_blank">Impressum</a>
 </div>
 
 </body>
