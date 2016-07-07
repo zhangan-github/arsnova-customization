@@ -214,8 +214,8 @@ function login() {
 
 	updateStatusInfo();
 	req = new XMLHttpRequest();
-	req.open("POST", apiPath + "/auth/login?" + data, false);
-	req.send();
+	req.open("POST", apiPath + "/auth/login", false);
+	req.send(data);
 	if (200 === req.status) {
 		console.log("Login successful");
 		updateStatusInfo("Anmeldung erfolgreich", "success");
@@ -233,8 +233,8 @@ function register() {
 
 	updateStatusInfo();
 	req = new XMLHttpRequest();
-	req.open("POST", apiPath + "/user/register?" + data, false);
-	req.send();
+	req.open("POST", apiPath + "/user/register", false);
+	req.send(data);
 	if (200 === req.status) {
 		console.log("Registration successful");
 		updateStatusInfo("Registrierung erfolgreich", "success");
@@ -247,8 +247,9 @@ function register() {
 
 function activate() {
 	req = new XMLHttpRequest();
-	req.open("POST", apiPath + "/user/" + encodeURIComponent(params.username) + "/activate?key=" + params.key, false);
-	req.send();
+	var data = "key=" + params.key;
+	req.open("POST", apiPath + "/user/" + encodeURIComponent(params.username) + "/activate", false);
+	req.send(data);
 	if (200 === req.status) {
 		console.log("Activation successful");
 		updateStatusInfo("Aktivierung erfolgreich", "success");
@@ -276,9 +277,10 @@ function sendPasswordLink() {
 
 function resetPassword() {
 	var password = document.getElementById("pwResetPassword").value;
+	var data = "key=" + params.key + "&password=" + encodeURIComponent(password);
 	req = new XMLHttpRequest();
-	req.open("POST", apiPath + "/user/" + encodeURIComponent(params.username) + "/resetpassword?key=" + params.key + "&password=" + encodeURIComponent(password), false);
-	req.send();
+	req.open("POST", apiPath + "/user/" + encodeURIComponent(params.username) + "/resetpassword", false);
+	req.send(data);
 	if (200 === req.status) {
 		console.log("Password change successful");
 		document.getElementById("user").value = params.username;
