@@ -169,6 +169,7 @@ input.error {
 var apiPath = "";
 var privacyUrl = "";
 var legalUrl = "";
+var defaultRedirUrl = "/";
 
 function loadConfig(successCallback, failureCallback) {
 	req = new XMLHttpRequest();
@@ -220,7 +221,7 @@ function login() {
 	if (200 === req.status) {
 		console.log("Login successful");
 		updateStatusInfo("Anmeldung erfolgreich", "success");
-		location.href = params.redirect ? params.redirect : "/";
+		location.href = params.redirect ? params.redirect : defaultRedirUrl;
 	} else {
 		console.log("Login failed");
 		updateStatusInfo("Anmeldung fehlgeschlagen", "error");
