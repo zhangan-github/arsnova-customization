@@ -1,7 +1,7 @@
 <html>
 <head>
 <meta charset="UTF-8" />
-<title>ARSnova: Anmeldung</title>
+<title>CRSfit登录</title>
 <meta name="viewport" content="initial-scale=1, maximum-scale=1" />
 <style type="text/css">
 
@@ -35,20 +35,20 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
-.icon-logo-radar:before {
+.icon-logo-radar {
 	content: "\72";
 	margin-right: -.20em;
 	margin-left: 5px;
 	color: #80ba24;
 }
 
-.icon-logo-ars:before {
+.icon-logo-ars {
 	content: "\61";
 	margin-left: -.5em;
 	color: #4a5c66;
 }
 
-.icon-logo-nova:before {
+.icon-logo-nova {
 	content: "\6e";
 	margin-left: -.5em;
 	color: #80ba24;
@@ -220,11 +220,11 @@ function login() {
 	req.send(data);
 	if (200 === req.status) {
 		console.log("Login successful");
-		updateStatusInfo("Anmeldung erfolgreich", "success");
+		updateStatusInfo("登陆成功", "success");
 		location.href = params.redirect ? params.redirect : defaultRedirUrl;
 	} else {
 		console.log("Login failed");
-		updateStatusInfo("Anmeldung fehlgeschlagen", "error");
+		updateStatusInfo("登陆失败", "error");
 	}
 }
 
@@ -235,17 +235,21 @@ function register() {
 
 	updateStatusInfo();
 	req = new XMLHttpRequest();
-	req.open("POST", apiPath + "/user/register", false);
+	req.onreadystatechange = function () {
+		if (4 === req.readyState /* DONE = 4 */) {
+			if (200 === req.status) {
+				console.log("Registration successful");
+				updateStatusInfo("注册成功", "success");
+				showRegConfirmInfo(user);
+			}
+		} else {
+			console.log("Registration failed");
+			updateStatusInfo("注册失败", "error");
+		}
+	}
+	req.open("POST", apiPath + "/user/register", true);
 	req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	req.send(data);
-	if (200 === req.status) {
-		console.log("Registration successful");
-		updateStatusInfo("Registrierung erfolgreich", "success");
-		showRegConfirmInfo(user);
-	} else {
-		console.log("Registration failed");
-		updateStatusInfo("Registrierung fehlgeschlagen", "error");
-	}
 }
 
 function activate() {
@@ -256,11 +260,11 @@ function activate() {
 	req.send(data);
 	if (200 === req.status) {
 		console.log("Activation successful");
-		updateStatusInfo("Aktivierung erfolgreich", "success");
+		updateStatusInfo("激活成功", "success");
 		document.getElementById("user").value = params.username;
 	} else {
 		console.log("Activation failed");
-		updateStatusInfo("Aktivierung fehlgeschlagen", "error");
+		updateStatusInfo("激活失败", "error");
 	}
 }
 
@@ -272,10 +276,10 @@ function sendPasswordLink() {
 	if (200 === req.status) {
 		console.log("Password reset link sent successful");
 		switchForm("login");
-		updateStatusInfo("Zurücksetzungslink versendet", "success");
+		updateStatusInfo("密码重置链接已发送至您的邮箱", "success");
 	} else {
 		console.log("Password reset link could not be sent");
-		updateStatusInfo("Passwortzurücksetzung fehlgeschlagen", "error");
+		updateStatusInfo("对不起，无法发送密码重置链接，请联系管理员", "error");
 	}
 }
 
@@ -290,10 +294,10 @@ function resetPassword() {
 		console.log("Password change successful");
 		document.getElementById("user").value = params.username;
 		switchForm("login");
-		updateStatusInfo("Passwortänderung erfolgreich", "success");
+		updateStatusInfo("密码修改成功", "success");
 	} else {
 		console.log("Password change failed");
-		updateStatusInfo("Passwortänderung fehlgeschlagen", "error");
+		updateStatusInfo("密码修改失败", "error");
 	}
 }
 
@@ -326,22 +330,22 @@ function switchForm(form) {
 
 	switch (form) {
 	case "login":
-		title.innerHTML = "Anmeldung";
+		title.innerHTML = "登录";
 		loginForm.style.display = "block";
 
 		break;
 	case "reg":
-		title.innerHTML = "Registrierung";
+		title.innerHTML = "注册";
 		regForm.style.display = "block";
 
 		break;
 	case "pwReset":
-		title.innerHTML = "Passwort zurücksetzen";
+		title.innerHTML = "重置密码";
 		pwResetForm.style.display = "block";
 
 		break;
 	case "pwChange":
-		title.innerHTML = "Passwort ändern";
+		title.innerHTML = "修改密码";
 		pwChangeForm.style.display = "block";
 
 		break;
@@ -490,92 +494,90 @@ addEventListener("load", function () {
 <body>
 
 <div id="header" class="icon-logo">
-	<span class="icon-logo-radar"></span>
-	<span class="icon-logo-ars"></span>
-	<span class="icon-logo-nova"></span>
+	<span class='icon-logo-ars'>CRS</span>
+	<span class="icon-logo-nova">FIT</span>
 </div>
 
 <div id="content">
-	<h1 id="title">Anmeldung</h1>
+	<h1 id="title">登陆</h1>
 	<div id="statusInfo"></div>
 
 	<form id="loginForm">
 		<div>
-			<input id="user" type="email" placeholder="E-Mail-Adresse" autocapitalize="off" autocorrect="off" spellcheck="false" />
+			<input id="user" type="email" placeholder="EMail地址" autocapitalize="off" autocorrect="off" spellcheck="false" />
 		</div>
 		<div>
-			<input id="password" type="password" placeholder="Passwort" />
+			<input id="password" type="password" placeholder="密码" />
 		</div>
 		<div>
-			<input class="submit" type="submit" value="Anmelden" />
+			<input class="submit" type="submit" value="登陆" />
 		</div>
 
 		<div><p>
-			<a href="javascript:switchForm('reg')">Registrierung</a>
-			<br /><a href="javascript:switchForm('pwReset')">Passwort vergessen</a>
+			<a href="javascript:switchForm('reg')">注册</a>
+			<br /><a href="javascript:switchForm('pwReset')">忘记密码</a>
 		</p></div>
 	</form>
 
 	<form id="regForm">
 		<div>
-			<input id="regUsername" type="email" placeholder="E-Mail-Adresse" autocapitalize="off" autocorrect="off" spellcheck="false" />
+			<input id="regUsername" type="email" placeholder="EMail地址" autocapitalize="off" autocorrect="off" spellcheck="false" />
 		</div>
 		<div>
-			<input id="regUsernameRepeat" type="email" placeholder="E-Mail-Adresse (Wiederholung)" autocapitalize="off" autocorrect="off" spellcheck="false" autocomplete="off" />
+			<input id="regUsernameRepeat" type="email" placeholder="EMail地址（重复）" autocapitalize="off" autocorrect="off" spellcheck="false" autocomplete="off" />
 		</div>
 		<div>
-			<input id="regPassword" type="password" placeholder="Passwort (min. 8 Zeichen)" />
+			<input id="regPassword" type="password" placeholder="密码 （最少八个字符）" />
 		</div>
 		<div>
-			<input id="regPasswordRepeat" type="password" placeholder="Passwort (Wiederholung)" />
+			<input id="regPasswordRepeat" type="password" placeholder="密码 （重复确认）" />
 		</div>
 		<div>
-			<input id="regSubmit" class="submit" type="submit" value="Registrieren" disabled="disabled" />
+			<input id="regSubmit" class="submit" type="submit" value="注册" disabled="disabled" />
 		</div>
 
 		<div id="regInfo">
-			<p><a href="javascript:switchForm('login')">Zurück zur Anmeldung</a></p>
+			<p><a href="javascript:switchForm('login')">返回登陆</a></p>
 		</div>
 	</form>
 
 	<form id="pwResetForm">
-		<div>Bitte geben Sie Ihre E-Mail-Adresse an, mit der Sie sich bei ARSnova registriert haben. Ihnen wird dann in Kürze ein Link für das Setzen eines neuen Passworts zugesendet.</div>
+		<div>请输入您注册CRSfit的email地址，短期内我们会向您发送重置链接</div>
 		<div>
 			<input id="pwResetUsername" type="email" placeholder="E-Mail-Adresse" autocapitalize="off" autocorrect="off" spellcheck="false" />
 		</div>
 		<div>
-			<input class="submit" type="submit" value="Link zusenden" />
+			<input class="submit" type="submit" value="发送" />
 		</div>
 
 		<div>
-			<p><a href="javascript:switchForm('login')">Zurück zur Anmeldung</a></p>
+			<p><a href="javascript:switchForm('login')">返回登录</a></p>
 		</div>
 	</form>
 
 	<form id="pwChangeForm">
 		<div>
-			<input id="pwResetPassword" type="password" placeholder="Passwort (min. 8 Zeichen)" />
+			<input id="pwResetPassword" type="password" placeholder="密码 （最少八个字符）" />
 		</div>
 		<div>
-			<input id="pwResetPasswordRepeat" type="password" placeholder="Passwort (Wiederholung)" />
+			<input id="pwResetPasswordRepeat" type="password" placeholder="密码（重复确认）" />
 		</div>
 		<div>
-			<input id="pwResetSubmit" class="submit" type="submit" value="Passwort ändern" disabled="disabled" />
+			<input id="pwResetSubmit" class="submit" type="submit" value="修改密码" disabled="disabled" />
 		</div>
 
 		<div>
-			<p><a href="javascript:switchForm('login')">Zurück zur Anmeldung</a></p>
+			<p><a href="javascript:switchForm('login')">返回登录</a></p>
 		</div>
 	</form>
 
 	<div id="regConfirmInfo">
-		<p>Eine Bestätigung wurde Ihnen an <strong id="regConfirmMail"></strong> gesendet. Zum Abschließen
-		der Registrierung folgen Sie bitte dem Link in der E-Mail.</p>
+		<p>我们已向邮箱<strong id="regConfirmMail"></strong>发送了一份邮件，请您点击邮件中链接以完成注册</p>
 	</div>
 </div>
 
 <div id="footer">
-	<a id="privacy-link" target="_blank">Datenschutz</a><span id="footer-delimiter"> &bull; </span><a id="legal-link" target="_blank">Impressum</a>
+	<a id="privacy-link" target="_blank">隐私政策</a><span id="footer-delimiter"> &bull; </span><a id="legal-link" target="_blank">版本说明</a>
 </div>
 
 </body>
